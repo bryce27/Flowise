@@ -16,6 +16,19 @@ RUN apk add --no-cache chromium
 # Fixes: https://github.com/FlowiseAI/Flowise/issues/4126
 RUN apk add --no-cache curl
 
+# ===================================================================================
+# START: CUSTOM MODIFICATION TO INSTALL CALIBRE
+# ===================================================================================
+# Install dependencies for the Calibre installer and then run the installer.
+# This is required for the ebook-convert package to function.
+# The installation can take a few minutes.
+RUN apk add --no-cache xz-utils && \
+    echo "Installing Calibre... This may take a while." && \
+    curl -fsSL https://download.calibre-ebook.com/linux-installer.sh | sh /dev/stdin
+# ===================================================================================
+# END: CUSTOM MODIFICATION
+# ===================================================================================
+
 #install PNPM globaly
 RUN npm install -g pnpm
 
